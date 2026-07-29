@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hermes-nemotron-mesh"
+version = "1.0.0"
+description = "Multi-model candidate ranking with web and speech interfaces"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.116,<1",
+  "httpx>=0.28,<1",
+  "openai>=1.68,<3",
+  "python-dotenv>=1.0,<2",
+  "python-multipart>=0.0.20,<1",
+  "uvicorn[standard]>=0.35,<1",
+]
+
+[project.scripts]
+hermes-mesh = "hermes_mesh.cli:main"
+hermes-voice = "hermes_mesh.voice_cli:main"
+hermes-web = "hermes_mesh.api:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hermes_mesh"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/hermes_mesh/web" = "hermes_mesh/web"
