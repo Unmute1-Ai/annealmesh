@@ -1,6 +1,26 @@
-# Hermes-Nemotron mesh
+# AnnealMesh
 
-Web, text, and voice interfaces for a multi-model candidate-ranking pipeline.
+**Thermodynamic reasoning evaluation and verification for agentic AI.**
+
+AnnealMesh is an Unmute1AI reasoning-integrity architecture for
+evaluating claims, evidence, trajectories, and agent-generated
+reasoning using explicit thermodynamic state.
+
+Core quantities:
+
+- Energy (E) — structural and claim-consistency cost
+- Temperature (T) — governed exploration
+- Entropy (S) — candidate diversity
+- Free Energy (F) — `F = E - T*S`
+
+Candidate transitions can be evaluated using Metropolis and
+Metropolis-Hastings methods while temperature-changing operations
+remain governed and auditable.
+
+AnnealMesh forms the reasoning-verification layer of the broader
+Unmute1AI resilience architecture.
+
+**Accessibility First. Always.**
 
 ## Setup
 
