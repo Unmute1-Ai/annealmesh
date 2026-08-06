@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">Unmute1AI Resilience Architecture</title>
+  <desc id="desc">Diagram showing components AnnealMesh, PhaseFlow, Sentinel, RCM, IGNIS, Signal and the primary flows between them.</desc>
+  <style>
+    .box { fill:#ffffff; stroke:#0b3d91; stroke-width:2; rx:8; ry:8 }
+    .label { font-family: Arial, Helvetica, sans-serif; font-size:14px; fill:#0b3d91 }
+    .small { font-size:12px; fill:#022a5e }
+    .arrow { stroke:#0b3d91; stroke-width:2; fill:none; marker-end:url(#arrowhead) }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0b3d91" />
+    </marker>
+  </defs>
+
+  <!-- Boxes -->
+  <rect x="40" y="40" width="160" height="80" class="box"/>
+  <text x="120" y="80" text-anchor="middle" class="label">AnnealMesh</text>
+  <text x="120" y="100" text-anchor="middle" class="small">Evaluation & Verification</text>
+
+  <rect x="260" y="40" width="160" height="80" class="box"/>
+  <text x="340" y="80" text-anchor="middle" class="label">PhaseFlow</text>
+  <text x="340" y="100" text-anchor="middle" class="small">Continuous Risk State</text>
+
+  <rect x="480" y="40" width="160" height="80" class="box"/>
+  <text x="560" y="80" text-anchor="middle" class="label">Sentinel</text>
+  <text x="560" y="100" text-anchor="middle" class="small">Governance & Auth</text>
+
+  <rect x="40" y="200" width="160" height="80" class="box"/>
+  <text x="120" y="240" text-anchor="middle" class="label">RCM</text>
+  <text x="120" y="260" text-anchor="middle" class="small">Persistent Context & Evidence</text>
+
+  <rect x="260" y="200" width="160" height="80" class="box"/>
+  <text x="340" y="240" text-anchor="middle" class="label">IGNIS</text>
+  <text x="340" y="260" text-anchor="middle" class="small">Recovery & Repair</text>
+
+  <rect x="480" y="200" width="160" height="80" class="box"/>
+  <text x="560" y="240" text-anchor="middle" class="label">Signal</text>
+  <text x="560" y="260" text-anchor="middle" class="small">Accessible Communication</text>
+
+  <!-- Arrows -->
+  <path d="M200 80 L260 80" class="arrow"/>
+  <path d="M420 80 L480 80" class="arrow"/>
+  <path d="M340 120 L340 200" class="arrow"/>
+  <path d="M120 120 L120 200" class="arrow"/>
+  <path d="M560 120 L560 200" class="arrow"/>
+  <path d="M420 240 L480 240" class="arrow"/>
+
+  <!-- Bidirectional between AnnealMesh and RCM -->
+  <path d="M120 120 C120 150, 120 170, 120 200" stroke="#0b3d91" stroke-width="2" fill="none"/>
+  <path d="M120 200 C160 200, 200 200, 260 200" stroke="#0b3d91" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Labels for flows -->
+  <text x="230" y="60" class="small">risk-state</text>
+  <text x="400" y="60" class="small">policy</text>
+  <text x="340" y="165" class="small">triggers / evidence</text>
+  <text x="560" y="165" class="small">recovery commands</text>
+
+  <!-- Accessibility outlines for clickable areas (invisible but present) -->
+</svg>
