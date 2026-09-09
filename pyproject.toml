@@ -24,6 +24,3 @@ hermes-web = "hermes_mesh.api:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/hermes_mesh"]
-
-[tool.hatch.build.targets.wheel.force-include]
-"src/hermes_mesh/web" = "hermes_mesh/web"
