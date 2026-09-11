@@ -1,88 +1,67 @@
 # AnnealMesh
 
-**Thermodynamic reasoning evaluation and verification for agentic AI.**
+**Multi-model candidate generation, ranking, and synthesis.**
 
-AnnealMesh is an Unmute1AI reasoning-integrity layer for evaluating claims, evidence, trajectories, and multi-model candidate plans using explicit thermodynamic state.
+[Portfolio](https://github.com/Unmute1-Ai/Unmute1ai#readme) · [Engineering](https://github.com/Unmute1-Ai/U1Ai#readme) · [Security evidence](https://github.com/Unmute1-Ai/glass-box#readme)
 
-Core quantities:
+AnnealMesh coordinates a planner, parallel candidate generators, a model-based judge, and a final synthesis step. The checked-in Python package includes command-line, web, and speech interfaces.
 
-- **Energy (E)** — structural / consistency cost
-- **Temperature (T)** — governed exploration
-- **Entropy (S)** — candidate diversity
-- **Free Energy (F)** — `F = E - T*S`
+**Status: development implementation.** Model-based scores are advisory evaluations, not formal proof or authorization to execute actions.
 
-AnnealMesh can rank and verify candidate reasoning while keeping execution authority outside the model layer.
+## How it works
 
-> **Status: production candidate for reasoning verification.** It is not a proof that generated outputs are correct, safe, or authorized to cause effects.
+1. Generate a short plan with constraints and success criteria.
+2. Produce candidates using several reasoning strategies.
+3. Rank candidates using structured judge responses.
+4. Carry selected candidates into later rounds while lowering sampling temperature.
+5. Synthesize a final response from the plan and finalists.
 
-## Architecture
-
-```text
-candidate generators
-      |
-      v
-  AnnealMesh
-E / T / S / F evaluation
-      |
-      v
-verified candidate / hold
-      |
-      v
- U1 Sentinel
-external authority gate
-```
+The implementation uses an annealing-inspired temperature schedule. It does not implement a physical thermodynamic system or a general mathematical proof verifier.
 
 ## Setup
 
-Requires Python 3.11+.
+Requires Python 3.11+ and configured model endpoints.
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 python -m pip install -e .
 cp .env.example .env
 ```
 
-Configure model and speech endpoints in `.env`. Keep production secrets outside source control.
+On Windows, activate with `.venv\Scripts\activate`. Configure the providers described in [.env.example](.env.example). Keep credentials local.
 
-## Web app
+## Interfaces
 
-```bash
-hermes-web
-```
+| Interface | Command |
+| --- | --- |
+| Web application | `hermes-web` |
+| Text CLI | `hermes-mesh "Compare two approaches to accessible onboarding"` |
+| Speech CLI | `hermes-voice ./question.wav -o ./answer.wav` |
 
-Open `http://127.0.0.1:8080`.
-
-For non-local deployment, place the service behind HTTPS and expose `/health` to the platform.
-
-## CLI
-
-```bash
-hermes-mesh "Design a fault-tolerant event ingestion service"
-hermes-voice ./question.wav -o ./answer.wav
-```
-
-## Production principles
-
-- Model/candidate quality does **not** grant execution authority.
-- External evaluator/scanner verdicts remain advisory.
-- Backend/provider/jurisdiction metadata may influence routing but not principal authority.
-- Quantum/backend maturity and verified advantage are separate claims.
-- Low-confidence or conflicting evidence should hold/review rather than silently release.
-- All public benchmark claims should point to reproducible evidence.
-
-See [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) and [SECURITY.md](SECURITY.md).
+The installed command names retain the `hermes-` prefix for compatibility. Speech requires its configured providers as well as model endpoints.
 
 ## Development
 
 ```bash
-python -m pip install -e ".[dev]"  # if dev extras are added
 python -m compileall -q src
 ```
 
-The CI workflow performs an install/import/package smoke test without requiring live model endpoints.
+The project does not currently declare a `dev` dependency extra. Installation and compilation checks do not validate live provider behavior or response quality.
+
+## Repository map
+
+- [src/hermes_mesh/mesh.py](src/hermes_mesh/mesh.py) — candidate generation, temperature schedule, ranking, and synthesis.
+- [src/hermes_mesh/config.py](src/hermes_mesh/config.py) — runtime configuration.
+- [src/hermes_mesh/api.py](src/hermes_mesh/api.py) — web service.
+- [docs/](docs/) — supporting documentation.
+- [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md) — deployment requirements.
+- [SECURITY.md](SECURITY.md) — security guidance.
+
+## Authority boundary
+
+A candidate's score does not grant permission. Any integration that performs external actions needs a separately enforced authorization boundary. The intended Sentinel relationship is an architecture boundary, not evidence of an integrated enforcement service in this package.
 
 ---
 
-**Unmute1AI**  
-Intelligence recommends. Authority decides.
+**Unmute1AI · Intelligence recommends. Authority decides.**
