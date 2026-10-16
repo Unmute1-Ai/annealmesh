@@ -46,7 +46,7 @@ class ModelConfig:
 @dataclass(frozen=True)
 class MeshConfig:
     hermes: ModelConfig
-    nemotron: ModelConfig
+    nemotron: ModelConfig | None
     width: int
     rounds: int
     survivors: int
@@ -69,9 +69,16 @@ class MeshConfig:
                 "NEMOTRON_LIGHTNING, NEMOTRON_BOLT, and NEMOTRON_SUPER_VL"
             )
 
+        nemotron = ModelConfig.load_optional("NEMOTRON")
+        if configured_roles == 0 and nemotron is None:
+            raise ValueError(
+                "Configure NEMOTRON for legacy single-worker mode, or configure all "
+                "three specialist endpoints for three-model MoA mode"
+            )
+
         cfg = cls(
             hermes=ModelConfig.load("HERMES"),
-            nemotron=ModelConfig.load("NEMOTRON"),
+            nemotron=nemotron,
             width=int(os.getenv("MESH_WIDTH", "4")),
             rounds=int(os.getenv("MESH_ROUNDS", "3")),
             survivors=int(os.getenv("MESH_SURVIVORS", "2")),
@@ -88,4 +95,6 @@ class MeshConfig:
             raise ValueError("MESH_SURVIVORS cannot exceed MESH_WIDTH")
         if cfg.min_temperature < 0 or cfg.temperature < cfg.min_temperature:
             raise ValueError("Temperatures must satisfy 0 <= minimum <= initial")
+        if configured_roles == 3 and cfg.width < 3:
+            raise ValueError("MESH_WIDTH must be at least 3 for three-model MoA mode")
         return cfg
