@@ -9,7 +9,7 @@
 - [ ] Supported Python versions are defined
 - [ ] Dependency versions are reviewed
 - [ ] Three-model endpoint configuration tests pass on supported Python versions
-- [ ] Live endpoint smoke tests pass for all three configured Nemotron specialists
+- [ ] Live endpoint smoke tests pass for all three configured Nemotron specialists (`python scripts/smoke_test_specialists.py`)
 
 ## Runtime
 - [ ] /health monitored
