@@ -44,6 +44,10 @@ Set all three `NEMOTRON_LIGHTNING_*`, `NEMOTRON_BOLT_*`, and `NEMOTRON_SUPER_VL_
 **Live smoke test:** After setting the real endpoint URLs, API keys, and exact model IDs in `.env`, run the following on a host that can reach all three model servers:\n\n\`\`\`bash\nset -a\n. ./.env\nset +a\npython scripts/smoke_test_specialists.py\n\`\`\`\n\nThe runner checks each endpoint's `/v1/models` response when available, verifies the configured ID is listed, sends a real chat-completions request, measures request latency, and emits JSON without printing API keys or response text. A zero exit status means all three endpoints returned non-empty text; it is a connectivity smoke test, not a quality or safety benchmark.\n\n**Current scope:** Super VL currently receives text prompts through the shared chat client. This change does not yet pass image/video payloads into the model; native multimodal request support is a separate integration task. Model scores are advisory and never grant tool permissions. External actions still require a separately enforced authorization boundary such as U1Si-Q/Sentinel.
 
 
+## Voice benchmark protocol
+
+The paired U1 Voice vs. ELAV8 Voice protocol and 24-case test set are in [benchmarks/voice-comparison-protocol.md](benchmarks/voice-comparison-protocol.md) and [benchmarks/voice_tasks.jsonl](benchmarks/voice_tasks.jsonl). They define repeatable scoring for intent/slot accuracy, task success, latency, accessibility, privacy evidence, and authorization failures. These are test fixtures only; no comparative results are claimed until both products are tested under matched conditions.
+
 ## Interfaces
 
 | Interface | Command |
