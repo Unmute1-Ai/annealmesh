@@ -59,7 +59,11 @@ class AnnealedMesh:
     ) -> None:
         self.config = config
         self.hermes = ChatModel(config.hermes, config.timeout)
-        self.nemotron = (\n            ChatModel(config.nemotron, config.timeout)\n            if config.nemotron is not None\n            else None\n        )
+        self.nemotron = (
+            ChatModel(config.nemotron, config.timeout)
+            if config.nemotron is not None
+            else None
+        )
         self.lightning = (
             ChatModel(config.lightning, config.timeout)
             if config.lightning is not None
@@ -102,7 +106,11 @@ class AnnealedMesh:
     def _specialists(self) -> list[tuple[str, ChatModel]]:
         configured = (self.lightning, self.bolt, self.super_vl)
         if all(model is None for model in configured):
-            if self.nemotron is None:\n                raise ValueError("NEMOTRON must be configured when specialist MoA is disabled")\n            return [("default", self.nemotron)]
+            if self.nemotron is None:
+                raise ValueError(
+                    "NEMOTRON must be configured when specialist MoA is disabled"
+                )
+            return [("default", self.nemotron)]
         if any(model is None for model in configured):
             # MeshConfig.load rejects partial setup; keep direct construction safe too.
             raise ValueError("All three Nemotron specialist models must be configured")
