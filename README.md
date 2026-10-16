@@ -31,6 +31,19 @@ cp .env.example .env
 
 On Windows, activate with `.venv\Scripts\activate`. Configure the providers described in [.env.example](.env.example). Keep credentials local.
 
+## Three-model Nemotron MoA
+
+AnnealMesh supports an optional three-specialist mode while preserving the legacy single-worker configuration:
+
+- **Nemotron 3.5 Lightning** — fast intent and structured-output candidate.
+- **Nemotron 3.5 Bolt** — multistep planning candidate.
+- **Nemotron 3.5 Super VL** — deeper reasoning and ambiguity-check candidate.
+
+Set all three `NEMOTRON_LIGHTNING_*`, `NEMOTRON_BOLT_*`, and `NEMOTRON_SUPER_VL_*` variable groups together. Each endpoint must speak the OpenAI-compatible chat-completions API, and its configured model ID must match the ID served by that endpoint. The existing `HERMES_*` endpoint remains the planner, advisory judge, and final synthesizer. Set `MESH_WIDTH` to at least 3 so every specialist contributes a candidate each round. If all specialist variables are unset, the previous `NEMOTRON_*` single-worker mode remains available.
+
+**Current scope:** Super VL currently receives text prompts through the shared chat client. This change does not yet pass image/video payloads into the model; native multimodal request support is a separate integration task. Model scores are advisory and never grant tool permissions. External actions still require a separately enforced authorization boundary such as U1Si-Q/Sentinel.
+
+
 ## Interfaces
 
 | Interface | Command |
