@@ -10,9 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
 from typing import Iterable
 
 
@@ -106,7 +104,6 @@ def report(seed: int = 1859) -> dict:
         "mode": "offline_deterministic_research_simulator",
         "seed": seed,
         "target": TARGET,
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "evidence_policy": {
             "simulated_candidates_are_not_evidence": True,
             "numerical_checks_are_not_proofs": True,
