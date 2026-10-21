@@ -1,5 +1,9 @@
 """Tests for the offline ZimZilla research simulator."""
+import sys
 import unittest
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from hermes_mesh.zimzilla_sim import crystal_lane, fusion_lane, merge_findings, report
 
